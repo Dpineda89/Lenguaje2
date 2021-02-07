@@ -2,7 +2,7 @@
 
 using namespace std;
 
-int main (int argc, char const *argv[])
+int main(int argc, char const *argv[])
 {
     string nombre;
 
@@ -10,7 +10,7 @@ int main (int argc, char const *argv[])
     cin >> nombre;
 
     cout << endl;
-    cout << "Hola mi nombre es:  " << nombre;
+    cout << "Hola mi nombre es  " << nombre;
     cout << endl;
 
     return 0;
