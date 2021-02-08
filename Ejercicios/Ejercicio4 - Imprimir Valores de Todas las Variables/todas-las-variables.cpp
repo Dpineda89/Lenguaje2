@@ -4,7 +4,7 @@ using namespace std;
 int main(int argc, char const *argv[])
 {
     bool valorBoolean;
-    valorBoolean = true;
+    valorBoolean = false;
 
     int valorEntero = 15;
     double valorDouble = 20.99;
