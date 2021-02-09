@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-
+#include <vector>
 using namespace std;
 
 string productos [5][3] = {
@@ -10,6 +10,8 @@ string productos [5][3] = {
     { "004", "Mouse", "100" },
     { "005", "HeadSet", "25" },
 };
+
+vector <string> movimientos;
 
 void listarproductos() {
     system("cls");
@@ -24,7 +26,7 @@ void listarproductos() {
     }
 }
 
-void movimientoInventario(string codigo, int cantidad, string tipoMovimiento) {
+bool movimientoInventario(string codigo, int cantidad, string tipoMovimiento) {
     for (int i = 0; i < 5; i++)
     {
         if (productos[i][0] == codigo) {        
@@ -33,8 +35,10 @@ void movimientoInventario(string codigo, int cantidad, string tipoMovimiento) {
             } else {
                 productos[i][2] = to_string(stoi(productos[i][2]) - cantidad);
             }
+            return true;
         }
     }
+    return false;
 }
 
 void ingresoDeInventario() {
@@ -73,6 +77,91 @@ void salidaDeInventario() {
     movimientoInventario(codigo, cantidad, "-");
 }
 
+void ajusteNegativo()
+{
+    string codigo = "";
+    int cantidad = 0;
+
+    system("cls");
+    cout << endl;
+    cout << "Ajuste negativo de Inventario" << endl;
+    cout << "**********************************" << endl; 
+    cout << "Ingrese el codigo del producto ";
+    cin >> codigo;
+    cout << endl;
+    cout << "Ingrese la cantidad del producto: ";
+    cin >> cantidad;
+    cout << endl;
+
+    bool resultado = movimientoInventario(codigo, cantidad, "-");
+    if(resultado)
+    {
+      string valor = codigo + " | " + to_string(cantidad) + " | -";
+       movimientos.push_back(valor); 
+    }
+    else
+    {
+        cout<<"No se encontro un producto con el codigo ingresado"<<endl;
+    }
+}
+
+void ajustePositivo()
+{
+    string codigo = "";
+    int cantidad = 0;
+
+    system("cls");
+    cout << endl;
+    cout << "Ajuste positivo de Inventario" << endl;
+    cout << "**********************************" << endl; 
+    cout << "Ingrese el codigo del producto ";
+    cin >> codigo;
+    cout << endl;
+    cout << "Ingrese la cantidad del producto: ";
+    cin >> cantidad;
+    cout << endl;
+
+    bool resultado = movimientoInventario(codigo, cantidad, "+");
+    if(resultado)
+    {
+       string valor = codigo + " | " + to_string(cantidad) + " | +";
+       movimientos.push_back(valor); 
+    }
+    else
+    {
+        cout<<"No se encontro un producto con el codigo ingresado"<<endl;
+    }
+}
+
+void ajusteDeInventario()
+{
+    int tipoMovimiento;
+    cout<<"Que tipo de ajuste hara: 1.Positivo 2.Negativo"<<endl;
+    cin>>tipoMovimiento;
+    switch (tipoMovimiento)
+    {
+    case 1:
+        ajustePositivo();
+        break;
+    case 2:
+        ajusteNegativo();
+        break;
+    
+    default:
+        break;
+    }
+}
+
+void printMovimientos()
+{
+    cout<<"HISTORIAL DE AJUSTES"<<endl;
+    for (std::size_t i = 0; i < movimientos.size(); i++) 
+    {
+        cout << movimientos[i] << endl;
+    }
+    cout<<"===================================="<<endl;
+}
+
 int main(int argc, char const *argv[])
 {
     int opcion = 0;
@@ -88,6 +177,8 @@ int main(int argc, char const *argv[])
         cout << "1 - Productos" << endl;
         cout << "2 - Ingreso de Inventario" << endl;
         cout << "3 - Salida de Inventario" << endl;
+        cout << "4 - Ajuste de Inventario" << endl;
+        cout << "5 - Mostrar historial de Ajustes de Inventario" << endl;
         cout << "0 - Salir " << endl;
         cout << "Ingrese una opcion del menu: ";
         cin >> opcion;
@@ -104,7 +195,12 @@ int main(int argc, char const *argv[])
         case 3:
             salidaDeInventario();
             break;
-
+        case 4:
+            ajusteDeInventario();
+            break;
+        case 5:
+            printMovimientos();
+            break;
         default:
             break;
 
