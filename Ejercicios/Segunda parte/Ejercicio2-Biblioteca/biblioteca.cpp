@@ -105,19 +105,11 @@ int main(int argc, char const *argv[])
                   salir = true;
                   break;
               }
-              {
-                  /* code */
-              }
               
-          }
-          {
-              /* code */
           }
           
       }
-      {
-          /* code */
-      }
+
     }
     
     return 0;
